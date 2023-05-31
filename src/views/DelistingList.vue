@@ -1,0 +1,154 @@
+<template>
+    <div id="delisting-listt" class="delisting-list add">
+        <div class="card">
+            <div class="card-header">
+                اختبار قائمة الشطب
+                
+            </div>
+            <div class="card-body">
+                <v-form v-if="!response">
+                    <v-select outlined v-model="dim_id" :reverse="true" :items="dim_list" item-text="title" item-value="id"
+                        label="البعد " :error-messages="dimErrors"></v-select>
+                    <v-select outlined v-model="sub_id" :reverse="true" :items="subFiltered" item-text="title" item-value="id"
+                        label="عنوان فرعي " :error-messages="subErrors" :disabled="sub_disabled"></v-select>
+                    <v-select outlined v-model="child_id" :reverse="true" :items="child_list" item-text="name"
+                        item-value="id" label="اسم الطفل" :error-messages="childErrors"></v-select>
+                    <v-btn @click="submit" :disabled="isSubmit && !response" color="primary" light style="margin-top: 15px">
+                        بدء الاختبار
+                        <v-progress-circular :size="20" v-if="isSubmit && !response" indeterminate
+                            color="white"></v-progress-circular>
+                    </v-btn>
+                </v-form>
+                <list-box :result="result" :child_id="child_id" v-if="response"/>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import { validationMixin } from 'vuelidate'
+import { required } from 'vuelidate/lib/validators'
+import ListBox from "@/components/ListBox.vue"
+
+export default {
+    name: 'SideView',
+    components: {
+        ListBox
+    },
+    mixins: [validationMixin],
+    data: () => ({
+        child_list: [],
+        dim_list: [],
+        sub_list: [],
+        child_id: null,
+        dim_id: null,
+        sub_id: null,
+        disability: null,
+        response: false,
+        isSubmit: false,
+        result: null,
+        // box_id: [],
+    }),
+    validations: {
+        child_id: { required },
+        dim_id: { required },
+        sub_id: { required },
+    },
+    computed: {
+        dimErrors() {
+            const errors = []
+            if (!this.$v.dim_id.$dirty) return errors
+            !this.$v.dim_id.required && errors.push('هذا الحقل مطلوب')
+            return errors
+        },
+        childErrors() {
+            const errors = []
+            if (!this.$v.child_id.$dirty) return errors
+            !this.$v.child_id.required && errors.push('هذا الحقل مطلوب')
+            return errors
+        },
+        subErrors() {
+            const errors = []
+            if (!this.$v.sub_id.$dirty) return errors
+            !this.$v.sub_id.required && errors.push('هذا الحقل مطلوب')
+            return errors
+        },
+        subFiltered() {
+            return this.sub_list.filter(item => item.dim_id == this.dim_id)
+        },
+        sub_disabled() {
+            if (this.dim_id != null)
+                return false
+            else
+                return true
+        },
+    },
+    methods: {
+        submit() {
+            this.$v.$touch()
+            if (!this.$v.$error) {
+                this.isSubmit = true
+                this.send()
+            }
+        },
+        send() {
+            console.log("child_id: " + this.child_id)
+            console.log("dim_id: " + this.dim_id)
+            this.axios.post(this.$store.state.url + "/api/first_box_list", {
+                child_id: this.child_id,
+                dim_id: this.dim_id,
+                subTitle_id: this.sub_id
+            }, { headers: { 'Authorization': `Bearer ${this.$store.state.token}`}})
+                .then((res) => {
+                    this.result = res.data
+                    this.response = true
+                    console.log(res.data)
+                    
+                })
+                .catch((error) => {
+                    console.log(error)
+                });
+        },
+        getChild() {
+            this.axios.get(this.$store.state.url + "/api/show_child", { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
+                .then(res => {
+                    this.child_list = res.data.child
+                    console.log(res.data.child)
+                });
+        },
+        getDim() {
+            this.axios.get(this.$store.state.url + "/api/show_dimantion", { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
+                .then(res => {
+                    this.dim_list = res.data.dmantion
+                    console.log(res.data.dmantion)
+                });
+        },
+        getSub() {
+            this.axios.get(this.$store.state.url + "/api/sub_title", { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
+                .then(res => {
+                    this.sub_list = res.data.title
+                    console.log(this.sub_list)
+                });
+        },
+    },
+    mounted() {
+        this.getChild()
+        this.getDim()
+        this.getSub()
+    }
+};
+</script>
+
+<style lang="scss">
+@import url(@/assets/Css/main.css);
+
+
+.v-input--selection-controls {
+    padding-top: 0px;
+    margin-top: 0px;
+}
+
+.v-label {
+    font-size: 18px;
+}
+</style>

@@ -1,0 +1,237 @@
+{
+    "sidebar": {
+        "menu": [
+            {
+                "href": "/",
+                "title": "Dashboard",
+                "icon": "fa fa-home"
+            },
+            {
+                "header": true,
+                "title": "Real Estate",
+                "hiddenOnCollapse": true
+            },
+            {
+                "title": "categories",
+                "icon": "fas fa-table",
+                "child": [
+                    {
+                        "href": "/category/add",
+                        "title": "Add"
+                    },
+                    {
+                        "href": "/category/list",
+                        "title": "List"
+                    }
+                ]
+            },
+            {
+                "title": "Sub Categories",
+                "icon": "fas fa-th-list",
+                "child": [
+                    {
+                        "href": "/sub-category/add",
+                        "title": "Add"
+                    },
+                    {
+                        "href": "/sub-category/list",
+                        "title": "List"
+                    }
+                ]
+            },
+            {
+                "title": "Partial Category",
+                "icon": "fas fa-list-alt",
+                "child": [
+                    {
+                        "href": "/partial-category/add",
+                        "title": "Add"
+                    },
+                    {
+                        "href": "/partial-category/list",
+                        "title": "List"
+                    }
+                ]
+            },
+            {
+                "title": "State",
+                "icon": "fas fa-globe-asia",
+                "child": [
+                    {
+                        "href": "/state/add",
+                        "title": "Add"
+                    },
+                    {
+                        "href": "/state/list",
+                        "title": "List"
+                    }
+                ]
+            },
+            {
+                "title": "City",
+                "icon": "fas fa-building",
+                "child": [
+                    {
+                        "href": "/city/add",
+                        "title": "Add"
+                    },
+                    {
+                        "href": "/city/list",
+                        "title": "List"
+                    }
+                ]
+            }
+        ]
+    },
+    "req": "This field is required",
+    "submit": "Submit",
+    "success_message": "Your data was saved successfuly",
+    "close": "Close",
+    "confrim_delete": "Are you sure you want to delete this item?",
+    "cancel": "Cancel",
+    "confrim": "Confrim",
+    "category": {
+        "add": "Add Category",
+        "edit": "Edit Category",
+        "name": "Category",
+        "name_ar": "Category Name (ar)",
+        "name_en": "Category Name (en)",
+        "list": "Categories List",
+        "headers": [
+            {
+                "text": "Id",
+                "value": "id",
+                "align": "center"
+            },
+            {
+                "text": "Category Name",
+                "value": "name",
+                "align": "center"
+            },
+            {
+                "text": "Action",
+                "value": "mangement",
+                "align": "center",
+                "sortable": false
+            }
+        ]
+    },
+    "sub-category": {
+        "add": "Add Sub Category",
+        "edit": "Edit Sub Category",
+        "name": "Sub Category",
+        "name_ar": "Sub Category Name (ar)",
+        "name_en": "Sub Category Name (en)",
+        "list": "Sub Category List",
+        "headers": [
+            {
+                "text": "Id",
+                "value": "id",
+                "align": "center"
+            },
+            {
+                "text": "Sub Category Name",
+                "value": "name",
+                "align": "center"
+            },
+            {
+                "text": "Category Name",
+                "value": "category",
+                "align": "center"
+            },
+            {
+                "text": "Action",
+                "value": "mangement",
+                "align": "center",
+                "sortable": false
+            }
+        ]
+    },
+    "partial-category": {
+        "add": "Add Partial Category",
+        "edit": "Edit Partial Category",
+        "name_ar": "Partial Category Name (ar)",
+        "name_en": "Partial Category Name (en)",
+        "list": "Partial Category List",
+        "headers": [
+            {
+                "text": "Id",
+                "value": "id",
+                "align": "center"
+            },
+            {
+                "text": "Partial Category Name",
+                "value": "name",
+                "align": "center"
+            },
+            {
+                "text": "Sub Category Name",
+                "value": "sub_category",
+                "align": "center"
+            },
+            {
+                "text": "Action",
+                "value": "mangement",
+                "align": "center",
+                "sortable": false
+            }
+        ]
+    },
+    "state": {
+        "add": "Add State",
+        "edit": "Edit State",
+        "name": "State",
+        "name_ar": "State Name (ar)",
+        "name_en": "State Name (en)",
+        "list": "States List",
+        "headers": [
+            {
+                "text": "Id",
+                "value": "id",
+                "align": "center"
+            },
+            {
+                "text": "State Name",
+                "value": "name",
+                "align": "center"
+            },
+            {
+                "text": "Action",
+                "value": "mangement",
+                "align": "center",
+                "sortable": false
+            }
+        ]
+    },
+    "city": {
+        "add": "Add City",
+        "edit": "Edit City",
+        "name": "City",
+        "name_ar": "City Name (ar)",
+        "name_en": "City Name (en)",
+        "list": "City List",
+        "headers": [
+            {
+                "text": "Id",
+                "value": "id",
+                "align": "center"
+            },
+            {
+                "text": "City Name",
+                "value": "name",
+                "align": "center"
+            },
+            {
+                "text": "State Name",
+                "value": "state",
+                "align": "center"
+            },
+            {
+                "text": "Action",
+                "value": "mangement",
+                "align": "center",
+                "sortable": false
+            }
+        ]
+    }
+}

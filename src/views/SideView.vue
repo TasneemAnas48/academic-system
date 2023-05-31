@@ -1,0 +1,142 @@
+<template>
+    <div id="side-viewt" class="side-view add">
+        <div class="card">
+            <div class="card-header">
+                اختبار الصورة الجانبية
+            </div>
+            <div class="card-body">
+                <v-form v-if="!response">
+                    <v-select outlined v-model="dim_id" :reverse="true" :items="dim_list" item-text="title" item-value="id"
+                        label="البعد " :error-messages="dimErrors"></v-select>
+                    <v-select outlined v-model="child_id" :reverse="true" :items="child_list" item-text="name"
+                        item-value="id" label="اسم الطفل" :error-messages="childErrors"></v-select>
+                    <div class="row" style="margin-right: 5px">
+                        <p style="font-size: 18px;">هل يوجد لدى الطفل إعاقة</p>
+                        <v-radio-group v-model="disability" row :error-messages="disErrors">
+                            <v-radio label="نعم" value="true"></v-radio>
+                            <v-radio label="لا" value="false"></v-radio>
+                        </v-radio-group>
+                    </div>
+                    <v-btn @click="submit" :disabled="isSubmit && !response" color="primary" light style="margin-top: 15px">
+                        بدء الاختبار
+                        <v-progress-circular :size="20" v-if="isSubmit && !response" indeterminate
+                            color="white"></v-progress-circular>
+                    </v-btn>
+                </v-form>
+                <side-box :result="result" :child_id="child_id" v-if="response"/>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+// import Breadcrumbs from "@/components/Breadcrumbs.vue"
+
+import { validationMixin } from 'vuelidate'
+import { required } from 'vuelidate/lib/validators'
+import SideBox from "@/components/SideBox.vue"
+
+export default {
+    name: 'SideView',
+    components: {
+        SideBox
+        // Breadcrumbs
+    },
+    mixins: [validationMixin],
+    data: () => ({
+        child_list: [],
+        dim_list: [],
+        child_id: null,
+        dim_id: null,
+        disability: null,
+        response: false,
+        isSubmit: false,
+        result: null,
+        // box_id: [],
+    }),
+    validations: {
+        child_id: { required },
+        dim_id: { required },
+        disability: { required },
+    },
+    computed: {
+        dimErrors() {
+            const errors = []
+            if (!this.$v.dim_id.$dirty) return errors
+            !this.$v.dim_id.required && errors.push('هذا الحقل مطلوب')
+            return errors
+        },
+        childErrors() {
+            const errors = []
+            if (!this.$v.child_id.$dirty) return errors
+            !this.$v.child_id.required && errors.push('هذا الحقل مطلوب')
+            return errors
+        },
+        disErrors() {
+            const errors = []
+            if (!this.$v.disability.$dirty) return errors
+            !this.$v.disability.required && errors.push('هذا الحقل مطلوب')
+            return errors
+        }
+    },
+    methods: {
+
+        submit() {
+            this.$v.$touch()
+            if (!this.$v.$error) {
+                this.isSubmit = true
+                this.send()
+            }
+        },
+        send() {
+            console.log(this.dim_id) // 2
+            this.axios.post(this.$store.state.url + "/api/first_box", {
+                child_id: this.child_id,
+                dim_id: this.dim_id,
+                disability: this.disability
+            }, { headers: { 'Authorization': `Bearer ${this.$store.state.token}`}})
+                .then((res) => {
+                    this.result = res.data
+                    this.response = true
+                    console.log(res.data)
+                    
+                })
+                .catch((error) => {
+                    console.log(error)
+                });
+        },
+        getChild() {
+            this.axios.get(this.$store.state.url + "/api/show_child", { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
+                .then(res => {
+                    this.child_list = res.data.child
+                    console.log(res.data.child)
+                });
+        },
+        getDim() {
+            this.axios.get(this.$store.state.url + "/api/show_dimantion", { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
+                .then(res => {
+                    this.dim_list = res.data.dmantion
+                    console.log(res.data.dmantion)
+                });
+        },
+    },
+    mounted() {
+        this.getChild()
+        this.getDim()
+    }
+};
+</script>
+
+<style lang="scss">
+@import url(@/assets/Css/main.css);
+
+
+.v-input--selection-controls {
+    padding-top: 0px;
+    margin-top: 0px;
+}
+
+.v-label {
+    font-size: 18px;
+}
+</style>

@@ -1,0 +1,106 @@
+{
+    "sidebar": {
+        "menu": [
+            {
+                "href": "/",
+                "title": "لوحة التحكم",
+                "icon": "fa fa-home"
+            },
+            {
+                "header": true,
+                "title": "العقارات",
+                "hiddenOnCollapse": true
+            },
+            {
+                "title": "التصنيفات",
+                "icon": "fas fa-table",
+                "child": [
+                    {
+                        "href": "/category/add",
+                        "title": "إضافة تصنيف"
+                    },
+                    {
+                        "href": "/category/list",
+                        "title": "قائمة التصنيفات"
+                    }
+                ]
+            },
+            {
+                "title": "تصنيف فرعي",
+                "icon": "fas fa-th-list",
+                "child": [
+                    {
+                        "href": "/sub-category/add",
+                        "title": "إضافة تصنيف فرعي"
+                    },
+                    {
+                        "href": "/sub-category/list",
+                        "title": "قائمة التصنيفات الفرعية"
+                    }
+                ]
+            },
+            {
+                "title": "تصنيف جزئي",
+                "icon": "fas fa-list-alt",
+                "child": [
+                    {
+                        "href": "/partial-category/add",
+                        "title": "Add"
+                    },
+                    {
+                        "href": "/partial-category/list",
+                        "title": "List"
+                    }
+                ]
+            }
+        ]
+    },
+    "req": "هذا الحقل مطلوب",
+    "submit": "إرسال",
+    "success_message": "تم حفظ بياناتك بنجاح",
+    "close": "إغلاق",
+    "confrim_delete": "هل أنت متأكد من أنك تريد حذف هذا العنصر؟",
+    "cancel": "إلغاء",
+    "confrim": "تأكيد",
+
+
+    "category" :{
+        "add" : "إضافة تصنيف",
+        "edit": "تعديل تصنيف",
+        "name": "التصنيف",
+        "name_ar": "اسم التصنيف (ar)",
+        "name_en": "اسم التصنيف (en)",
+        "list": "قائمة التصنيفات",
+        "headers": [
+            { "text": "رقم", "value": "id", "align": "center" },
+            { "text": "اسم التصنيف", "value": "name", "align": "center" },
+            { "text": "إدارة", "value": "mangement", "align": "center", "sortable": false }
+        ]
+    },
+    
+    "sub-category" :{
+        "add" : "إضافة تصنيف فرعي",
+        "edit": "تعديل تصنيف فرعي",
+        "name":"التصنيف الفرعي",
+        "name_ar": "اسم التصنيف الفرعي (ar)",
+        "name_en": "اسم التصنيف الفرعي (en)",
+        "headers": [
+            { "text": "رقم", "value": "id", "align": "center" },
+            { "text": "اسم التصنيف الفرعي", "value": "name", "align": "center" },
+            { "text": "اسم التصنيف", "value": "category", "align": "center" },
+            { "text": "إدارة", "value": "mangement", "align": "center", "sortable": false }
+        ]
+    },
+    "partial-category" :{
+        "add" : "إضافة تصنيف جزئي",
+        "edit": "تعديل تصنيف جزئي",
+        "name_ar": "اسم التصنيف الجزئي (ar)",
+        "name_en": "اسم التصنيف الجزئي (en)",
+        "headers": [
+            { "text": "رقم", "value": "id", "align": "center" },
+            { "text": "اسم التصنيف الجزئي", "value": "name", "align": "center" },
+            { "text": "اسم التصنيف", "value": "category", "align": "center" },
+            { "text": "إدارة", "value": "mangement", "align": "center", "sortable": false }
+        ]
+    }
+}

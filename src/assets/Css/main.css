@@ -1,0 +1,141 @@
+.card {
+    box-shadow: 0 0 10px #d0cbcb4d !important;
+    margin: 40px 50px !important;
+    border-radius: 18px !important;
+    text-align: justify;
+    border: none !important;
+}
+.list .card{
+    min-height: 450px;
+}
+.card-body {
+    padding: 25px 50px 50px !important;
+
+}
+
+.card-header {
+    font-size: 20px !important;
+    background: #fff !important;
+    padding: 25px 40px !important;
+}
+
+.card-header:first-child {
+    border-top-left-radius: 18px !important;
+    border-top-right-radius: 18px !important;
+}
+
+.v-input {
+    margin-bottom: 30px;
+}
+
+.progress-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.my-table .fa-trash {
+    color: #dc3545;
+    background: #ff00003b;
+    border-radius: 7px;
+    padding: 7px;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+.my-table .fa-trash:hover {
+    color: white;
+    background-color: #dc3545;
+    cursor: pointer;
+}
+
+.my-table .fa-pen {
+    color: #1eb018;
+    background: rgb(64 201 59 / 21%);
+    border-radius: 7px;
+    padding: 7px;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+.my-table .fa-pen:hover {
+    color: white;
+    background-color: #1eb018;
+    cursor: pointer;
+}
+.my-table .fa-eye{
+    color: #5b5bea;
+    background: rgba(86, 117, 255, 0.274);
+    border-radius: 7px;
+    padding: 7px;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+.my-table .fa-eye:hover {
+    color: white;
+    background-color: #5b5bea;
+    cursor: pointer;
+}
+.my-table .fa-pen-to-square {
+    color: #f18c2d;
+    background: #f191383d;
+    border-radius: 7px;
+    padding: 7px;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+.my-table .fa-pen-to-square:hover {
+    color: white;
+    background-color: #f18c2d;
+    cursor: pointer;
+}
+.my-table .v-data-footer{
+    direction: ltr;
+}
+
+.add .v-progress-circular {
+    margin-right: 10px;
+}
+.v-card__title{
+    padding: 0px;
+}
+/* .menuable__content__active{
+    top: 355px !important
+} */
+.v-select{
+    direction: ltr !important;
+} 
+.v-select-list{
+    text-align: justify;
+}
+.v-text-field{
+    margin: 20px 0px !important;
+    border-radius: 10px !important;
+}
+.v-btn{
+    border-radius: 7px !important;
+}
+.my-table .v-card__title{
+    margin-bottom: 20px
+}
+.v-btn {
+    text-transform: none !important;
+}
+
+.v-messages__message{
+    text-align: right !important;
+}
+.v-data-table{
+    border: 1px solid #d5d5d5;
+    border-radius: 20px;
+    margin-top: 24px;
+    padding-top: 20px;
+}
+.v-data-table-header th{
+    font-size: 15px !important;
+    color: var(--v-primary-base) !important;
+}
