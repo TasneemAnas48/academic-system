@@ -27,7 +27,7 @@ import { required } from 'vuelidate/lib/validators'
 
 export default {
     name: 'ListBox',
-    props: ['result', 'child_id'],
+    props: ['result', 'child_id', 'subTitle_id'],
     mixins: [validationMixin],
     data: () => ({
         question: [],
@@ -62,14 +62,16 @@ export default {
             }
         },
         sendData() {
+            console.log(this.subTitle_id)
             this.axios.post(this.$store.state.url + "/api/store_list", {
                 child_id: this.child_id,
                 ques_id: this.ques_id,
-                answer: this.answer
+                answer: this.answer,
+                subTitle_id: this.subTitle_id
             }, { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
                 .then((res) => {
                     this.response = true
-                    console.log(res.data)
+                    console.log(res)
                     this.list_result = res.data.end
                     if (this.list_result == 'false') {
                         this.question = res.data.question

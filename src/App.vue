@@ -1,14 +1,14 @@
 <template>
   <v-app>
-    <div :class="[isCollapsed ? 'collapsed' : 'not-collapsed']"  v-if="![''].includes($route.name)" >
-      <v-main>
+    <div :class="[isCollapsed ? 'collapsed' : 'not-collapsed']"  v-if="!['first-register', 'second-register', 'login'].includes($route.name)" >
+      <v-main class="internal-main">
         <sidebar />
         <navbar />
         <router-view />
       </v-main>
     </div>
     <div  v-else>
-      <v-main>
+      <v-main class="external-main">
         <router-view />
       </v-main>
     </div>
@@ -33,7 +33,9 @@ export default {
     }
   },
   created() {
-    
+    const auth = localStorage.getItem("auth")
+    // if (auth)
+      // this.$store.state.token = localStorage.getItem("token")
   },
 
 
@@ -54,7 +56,7 @@ export default {
 }
 
 @media (max-width: 767px) {
-  .v-main {
+  .internal-main {
     padding-right: 65px !important;
   }
 }

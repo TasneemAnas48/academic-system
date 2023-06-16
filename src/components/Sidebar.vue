@@ -38,6 +38,11 @@ export default {
         icon: "fa fa-home"
       },
       {
+        href: "/child/list",
+        title: "الأطفال",
+        icon: "fas fa-baby",
+      },
+      {
         href: "/side-view",
         title: " الصورة الجانبية",
         icon: "fas fa-baby",
@@ -47,8 +52,6 @@ export default {
         title: " قائمة الشطب",
         icon: "fas fa-baby",
       },
-
-
       {
         // href: "/",
         title: "تسجيل خروج",
@@ -66,24 +69,18 @@ export default {
         // console.log("eeeeeeeeee")
         this.removeFromStore()
         this.removeFromlocalStorage()
-        this.$router.replace({ name: 'welcome' })
+        this.$router.replace({ name: 'login' })
       }
     },
     removeFromStore() {
-      // console.log("store")
       this.$store.state.token = null
-      this.$store.state.id = null
-      this.$store.state.name = null
-      this.$store.state.email = null
-      this.$store.state.role = null
     },
     removeFromlocalStorage() {
-      // console.log("local storag")
-      localStorage.setItem("token", '')
-      localStorage.setItem("id", '')
-      localStorage.setItem("name", '')
-      localStorage.setItem("email", '')
-      localStorage.setItem("role", '')
+      localStorage.removeItem("token")
+      localStorage.removeItem("id")
+      localStorage.removeItem("name")
+      localStorage.removeItem("email")
+      localStorage.setItem("auth", false)
     }
   },
   mounted() {

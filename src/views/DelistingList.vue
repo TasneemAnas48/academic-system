@@ -3,14 +3,13 @@
         <div class="card">
             <div class="card-header">
                 اختبار قائمة الشطب
-                
             </div>
             <div class="card-body">
                 <v-form v-if="!response">
                     <v-select outlined v-model="dim_id" :reverse="true" :items="dim_list" item-text="title" item-value="id"
                         label="البعد " :error-messages="dimErrors"></v-select>
-                    <v-select outlined v-model="sub_id" :reverse="true" :items="subFiltered" item-text="title" item-value="id"
-                        label="عنوان فرعي " :error-messages="subErrors" :disabled="sub_disabled"></v-select>
+                    <v-select outlined v-model="sub_id" :reverse="true" :items="subFiltered" item-text="title"
+                        item-value="id" label="عنوان فرعي " :error-messages="subErrors" :disabled="sub_disabled"></v-select>
                     <v-select outlined v-model="child_id" :reverse="true" :items="child_list" item-text="name"
                         item-value="id" label="اسم الطفل" :error-messages="childErrors"></v-select>
                     <v-btn @click="submit" :disabled="isSubmit && !response" color="primary" light style="margin-top: 15px">
@@ -19,9 +18,21 @@
                             color="white"></v-progress-circular>
                     </v-btn>
                 </v-form>
-                <list-box :result="result" :child_id="child_id" v-if="response"/>
+                <list-box :result="result" :child_id="child_id" :subTitle_id="sub_id" v-if="response" />
             </div>
         </div>
+        <v-dialog v-model="dialog" max-width="500">
+            <v-card>
+                <v-card-text style="padding: 25px 30px; font-size: 18px; color: #484848;">
+                    لا يمكنك القيام باختيار قائمة الشطب، الرجاء القيام باختبار الصورة الجانبية اولا </v-card-text>
+                <!-- <v-divider></v-divider> -->
+                <v-card-actions style="padding-bottom: 15px;">
+                    <v-btn color="green darken-1" text @click="ok()">
+                        موافق
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
@@ -47,6 +58,7 @@ export default {
         response: false,
         isSubmit: false,
         result: null,
+        dialog: false,
         // box_id: [],
     }),
     validations: {
@@ -94,16 +106,23 @@ export default {
         send() {
             console.log("child_id: " + this.child_id)
             console.log("dim_id: " + this.dim_id)
+            console.log("subTitle_id: " + this.sub_id)
             this.axios.post(this.$store.state.url + "/api/first_box_list", {
                 child_id: this.child_id,
                 dim_id: this.dim_id,
                 subTitle_id: this.sub_id
-            }, { headers: { 'Authorization': `Bearer ${this.$store.state.token}`}})
+            }, { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
                 .then((res) => {
-                    this.result = res.data
-                    this.response = true
+                    // this.result = res.data
+                    // this.response = true
                     console.log(res.data)
-                    
+                    if (res.data.result == "false")
+                        this.dialog = true
+                    else {
+                        this.result = res.data
+                        this.response = true
+                    }
+
                 })
                 .catch((error) => {
                     console.log(error)
@@ -113,23 +132,26 @@ export default {
             this.axios.get(this.$store.state.url + "/api/show_child", { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
                 .then(res => {
                     this.child_list = res.data.child
-                    console.log(res.data.child)
+                    // console.log(res.data.child)
                 });
         },
         getDim() {
             this.axios.get(this.$store.state.url + "/api/show_dimantion", { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
                 .then(res => {
                     this.dim_list = res.data.dmantion
-                    console.log(res.data.dmantion)
+                    // console.log(res.data.dmantion)
                 });
         },
         getSub() {
             this.axios.get(this.$store.state.url + "/api/sub_title", { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
                 .then(res => {
                     this.sub_list = res.data.title
-                    console.log(this.sub_list)
+                    // console.log(this.sub_list)
                 });
         },
+        ok() {
+            this.$router.replace({ name: 'side-view' })
+        }
     },
     mounted() {
         this.getChild()
