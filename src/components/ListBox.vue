@@ -62,7 +62,10 @@ export default {
             }
         },
         sendData() {
-            console.log(this.subTitle_id)
+            console.log("child_id: " + this.child_id)
+            console.log("ques_id: " + this.ques_id)
+            console.log("answer: " + this.answer)
+            console.log("subTitle_id: " + this.subTitle_id)
             this.axios.post(this.$store.state.url + "/api/store_list", {
                 child_id: this.child_id,
                 ques_id: this.ques_id,
