@@ -18,7 +18,7 @@
                             color="white"></v-progress-circular>
                     </v-btn>
                 </v-form>
-                <list-box :result="result" :child_id="child_id" :subTitle_id="sub_id" v-if="response" />
+                <list-box :result="result" :child_id="child_id" :subTitle_id="sub_id" :sub_name="sub_name" :dim_name="dim_name" v-if="response" />
             </div>
         </div>
         <v-dialog v-model="dialog" max-width="500">
@@ -60,6 +60,8 @@ export default {
         result: null,
         dialog: false,
         // box_id: [],
+        dim_name: null,
+        sub_name: null,
     }),
     validations: {
         child_id: { required },
@@ -104,6 +106,16 @@ export default {
             }
         },
         send() {
+            this.dim_list.forEach(item => {
+                if (this.dim_id == item.id)
+                    this.dim_name = item.title
+            })
+            console.log(this.dim_name)
+            this.sub_list.forEach(item => {
+                if (this.sub_id == item.id)
+                    this.sub_name = item.title
+            })
+            console.log(this.sub_name)
             console.log("child_id: " + this.child_id)
             console.log("dim_id: " + this.dim_id)
             console.log("subTitle_id: " + this.sub_id)

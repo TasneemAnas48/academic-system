@@ -23,7 +23,7 @@
                             color="white"></v-progress-circular>
                     </v-btn>
                 </v-form>
-                <side-box :result="result" :child_id="child_id" :start_age="start_age" :end_age="end_age" v-if="response"/>
+                <side-box :result="result" :child_id="child_id" :start_age="start_age" :end_age="end_age" :dim_name="dim_name" v-if="response"/>
             </div>
         </div>
     </div>
@@ -54,6 +54,7 @@ export default {
         result: null,
         start_age: null,
         end_age: null,
+        dim_name: null
         // box_id: [],
     }),
     validations: {
@@ -92,6 +93,11 @@ export default {
         },
         send() {
             console.log(this.dim_id) // 2
+            this.dim_list.forEach(item => {
+                if (this.dim_id == item.id)
+                    this.dim_name = item.title
+            })
+            console.log(this.dim_name)
             this.axios.post(this.$store.state.url + "/api/first_box", {
                 child_id: this.child_id,
                 dim_id: this.dim_id,

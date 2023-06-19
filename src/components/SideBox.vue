@@ -1,6 +1,8 @@
 <template>
     <div class="side-box add" v-if="side_result == 'not end'">
-        <p class="ques-title" style="margin-bottom: 40px;font-size:19px"> من عمر  {{ start_age/12 }} إلى عمر  {{ end_age/12 }}</p>
+        <p class="ques-title" style="margin-bottom: 40px;font-size:19px"> 
+            {{ dim_name }} : 
+            من عمر  {{ start_age/12 }} إلى عمر  {{ end_age/12 }}</p>
         
         <div class="row" v-for="(ques, index) in getQuestion" :key="index">
             <div class="col-lg-3 ques-title">
@@ -28,10 +30,17 @@
         </v-snackbar>
     </div>
     <div class="side-box add" v-else>
+        <!-- <p class="ques-title" style="margin-bottom: 40px;font-size:19px"> 
+            {{ dim_name }} : 
+            من عمر  {{ start_age/12 }} إلى عمر  {{ end_age/12 }}</p> -->
         <h5>نتيجة الاختبار</h5>
         <v-simple-table style="margin: 30px 0px; padding: 0px;">
             <template v-slot:default>
                 <tbody>
+                    <tr>
+                        <td>البعد </td>
+                        <td>{{ dim_name }}</td>
+                    </tr>
                     <tr>
                         <td>العمر الإضافي</td>
                         <td>{{ age.additional }}</td>
@@ -52,7 +61,7 @@ import { validationMixin } from 'vuelidate'
 
 export default {
     name: 'SideBox',
-    props: ['result', 'child_id', 'start_age', 'end_age'],
+    props: ['result', 'child_id', 'start_age', 'end_age', 'dim_name'],
     mixins: [validationMixin],
     data: () => ({
         question: [],
@@ -120,6 +129,9 @@ export default {
                     ques_mark: null
                 })
             })
+        },
+        dim(){
+
         }
     },
     mounted() {
