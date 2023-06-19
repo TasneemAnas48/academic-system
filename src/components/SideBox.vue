@@ -1,5 +1,7 @@
 <template>
     <div class="side-box add" v-if="side_result == 'not end'">
+        <p class="ques-title" style="margin-bottom: 40px;font-size:19px"> من عمر  {{ start_age/12 }} إلى عمر  {{ end_age/12 }}</p>
+        
         <div class="row" v-for="(ques, index) in getQuestion" :key="index">
             <div class="col-lg-3 ques-title">
                 {{ ques.title }}
@@ -50,7 +52,7 @@ import { validationMixin } from 'vuelidate'
 
 export default {
     name: 'SideBox',
-    props: ['result', 'child_id'],
+    props: ['result', 'child_id', 'start_age', 'end_age'],
     mixins: [validationMixin],
     data: () => ({
         question: [],

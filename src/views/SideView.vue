@@ -23,7 +23,7 @@
                             color="white"></v-progress-circular>
                     </v-btn>
                 </v-form>
-                <side-box :result="result" :child_id="child_id" v-if="response"/>
+                <side-box :result="result" :child_id="child_id" :start_age="start_age" :end_age="end_age" v-if="response"/>
             </div>
         </div>
     </div>
@@ -52,6 +52,8 @@ export default {
         response: false,
         isSubmit: false,
         result: null,
+        start_age: null,
+        end_age: null,
         // box_id: [],
     }),
     validations: {
@@ -97,9 +99,12 @@ export default {
             }, { headers: { 'Authorization': `Bearer ${this.$store.state.token}`}})
                 .then((res) => {
                     this.result = res.data
+                    this.start_age = res.data.start_age
+                    this.end_age = res.data.end_age
                     this.response = true
                     console.log(res.data)
-                    
+                    // console.log(this.start_age)
+                    // console.log(this.end_age)
                 })
                 .catch((error) => {
                     console.log(error)

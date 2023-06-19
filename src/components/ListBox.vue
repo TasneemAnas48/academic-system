@@ -1,5 +1,6 @@
 <template>
     <div class="list-box add" v-if="list_result == 'false'">
+        
         <div class="row">
             <div class="col-lg-12">
                 <p style="font-size: 18px;">{{ getQuestion.question }}</p>
@@ -13,7 +14,6 @@
             التالي
             <v-progress-circular :size="20" v-if="isSubmit && !response" indeterminate color="white"></v-progress-circular>
         </v-btn>
-
     </div>
     <div class="list-box add" v-else style=" display: flex; justify-content: center;">
         <h4>  انتهى الاختبار </h4>
@@ -38,6 +38,7 @@ export default {
         ques_length: null,
         error_snackbar: false,
         list_result: 'false',
+        box_id: null,
     }),
     validations: {
         answer: { required },
@@ -67,12 +68,13 @@ export default {
             console.log("ques_id: " + this.ques_id)
             console.log("answer: " + this.answer)
             console.log("subTitle_id: " + this.subTitle_id)
+            console.log("box_id: " + this.box_id)
             console.log("_______________________________")
             this.axios.post(this.$store.state.url + "/api/store_list", {
                 child_id: this.child_id,
                 ques_id: this.ques_id,
                 answer: this.answer,
-                subTitle_id: this.subTitle_id
+                subTitle_id: this.subTitle_id,
             }, { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
                 .then((res) => {
                     this.response = true
@@ -80,7 +82,7 @@ export default {
                     this.list_result = res.data.end
                     if (this.list_result == 'false') {
                         this.question = res.data.question
-                        this.ques_id = this.question.ques_number
+                        this.ques_id = this.question.id
                         this.isSubmit = false
                         this.response = false
                         this.answer = null
@@ -95,7 +97,8 @@ export default {
     },
     mounted() {
         this.question = this.result.question
-        this.ques_id = this.question.ques_number
+        this.ques_id = this.question.id
+        this.box_id = this.question.box_id
         console.log(this.question)
     }
 };
