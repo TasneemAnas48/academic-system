@@ -2,8 +2,7 @@
     <div class="side-box add" v-if="side_result == 'not end'">
         <p class="ques-title" style="margin-bottom: 40px;font-size:19px"> 
             {{ dim_name }} : 
-            من عمر  {{ start_age/12 }} إلى عمر  {{ end_age/12 }}</p>
-        
+            من عمر  {{ start_age }} إلى عمر  {{ end_age }}</p>
         <div class="row" v-for="(ques, index) in getQuestion" :key="index">
             <div class="col-lg-3 ques-title">
                 {{ ques.title }}
