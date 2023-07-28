@@ -6,19 +6,20 @@
             </div>
             <div class="card-body">
                 <v-form v-if="!response">
-                    <v-select outlined v-model="dim_id" :reverse="true" :items="dim_list" item-text="title" item-value="id"
-                        label="البعد " :error-messages="dimErrors"></v-select>
-                    <v-select outlined v-model="sub_id" :reverse="true" :items="subFiltered" item-text="title"
-                        item-value="id" label="عنوان فرعي " :error-messages="subErrors" :disabled="sub_disabled"></v-select>
                     <v-select outlined v-model="child_id" :reverse="true" :items="child_list" item-text="name"
                         item-value="id" label="اسم الطفل" :error-messages="childErrors"></v-select>
+                    <v-select outlined v-model="dim_id" :reverse="true" :items="dim_list" label="البعد "
+                        :error-messages="dimErrors" :disabled="dim_disabled"></v-select>
+                    <v-select outlined v-model="sub_id" :reverse="true" :items="subFiltered" item-text="title"
+                        item-value="id" label="عنوان فرعي " :error-messages="subErrors" :disabled="sub_disabled"></v-select>
                     <v-btn @click="submit" :disabled="isSubmit && !response" color="primary" light style="margin-top: 15px">
                         بدء الاختبار
                         <v-progress-circular :size="20" v-if="isSubmit && !response" indeterminate
                             color="white"></v-progress-circular>
                     </v-btn>
                 </v-form>
-                <list-box :result="result" :child_id="child_id" :subTitle_id="sub_id" :sub_name="sub_name" :dim_name="dim_name" v-if="response" />
+                <list-box :result="result" :child_id="child_id" :subTitle_id="sub_id" :sub_name="sub_name"
+                    :dim_name="dim_name" v-if="response" />
             </div>
         </div>
         <v-dialog v-model="dialog" max-width="500">
@@ -62,11 +63,23 @@ export default {
         // box_id: [],
         dim_name: null,
         sub_name: null,
+        get_dim: false,
+        dim_list_final: []
     }),
     validations: {
         child_id: { required },
         dim_id: { required },
         sub_id: { required },
+    },
+    watch: {
+        child_id() {
+            this.axios.get(this.$store.state.url + "/api/available_dim/" + this.child_id, { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
+                .then(res => {
+                    this.get_dim = true
+                    console.log(res.data.dim)
+                    this.dim_list = res.data.dim
+                });
+        },
     },
     computed: {
         dimErrors() {
@@ -86,6 +99,12 @@ export default {
             if (!this.$v.sub_id.$dirty) return errors
             !this.$v.sub_id.required && errors.push('هذا الحقل مطلوب')
             return errors
+        },
+        dim_disabled() {
+            if (this.get_dim)
+                return false
+            else
+                return true
         },
         subFiltered() {
             return this.sub_list.filter(item => item.dim_id == this.dim_id)
@@ -134,7 +153,6 @@ export default {
                         this.result = res.data
                         this.response = true
                     }
-
                 })
                 .catch((error) => {
                     console.log(error)
@@ -145,13 +163,6 @@ export default {
                 .then(res => {
                     this.child_list = res.data.child
                     // console.log(res.data.child)
-                });
-        },
-        getDim() {
-            this.axios.get(this.$store.state.url + "/api/show_dimantion", { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
-                .then(res => {
-                    this.dim_list = res.data.dmantion
-                    // console.log(res.data.dmantion)
                 });
         },
         getSub() {
@@ -167,7 +178,6 @@ export default {
     },
     mounted() {
         this.getChild()
-        this.getDim()
         this.getSub()
     }
 };

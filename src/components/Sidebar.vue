@@ -43,12 +43,12 @@ export default {
         icon: "fas fa-baby",
       },
       {
-        href: "/side-view",
+        href: "/side-view/display",
         title: " الصورة الجانبية",
         icon: "fas fa-baby",
       },
       {
-        href: "/delisting-list",
+        href: "/delisting-list/display",
         title: " قائمة الشطب",
         icon: "fas fa-baby",
       },

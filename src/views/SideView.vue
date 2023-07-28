@@ -6,10 +6,10 @@
             </div>
             <div class="card-body">
                 <v-form v-if="!response">
-                    <v-select outlined v-model="dim_id" :reverse="true" :items="dim_list" item-text="title" item-value="id"
-                        label="البعد " :error-messages="dimErrors"></v-select>
                     <v-select outlined v-model="child_id" :reverse="true" :items="child_list" item-text="name"
                         item-value="id" label="اسم الطفل" :error-messages="childErrors"></v-select>
+                    <v-select outlined v-model="dim_id" :reverse="true" :items="dim_list" item-text="title" item-value="id"
+                        label="البعد " :error-messages="dimErrors"></v-select>
                     <div class="row" style="margin-right: 5px">
                         <p style="font-size: 18px;">هل يوجد لدى الطفل إعاقة</p>
                         <v-radio-group v-model="disability" row :error-messages="disErrors">
@@ -23,7 +23,8 @@
                             color="white"></v-progress-circular>
                     </v-btn>
                 </v-form>
-                <side-box :result="result" :child_id="child_id" :start_age="start_age" :end_age="end_age" :dim_name="dim_name" v-if="response"/>
+                <side-box :result="result" :child_id="child_id" :start_age="start_age" :end_age="end_age" :dim_id="dim_id"
+                    :dim_name="dim_name" v-if="response" />
             </div>
         </div>
     </div>
@@ -102,7 +103,7 @@ export default {
                 child_id: this.child_id,
                 dim_id: this.dim_id,
                 disability: this.disability
-            }, { headers: { 'Authorization': `Bearer ${this.$store.state.token}`}})
+            }, { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
                 .then((res) => {
                     this.result = res.data
                     this.start_age = res.data.start_age

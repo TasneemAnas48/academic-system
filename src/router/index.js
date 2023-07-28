@@ -14,6 +14,12 @@ import Dashboard from "@/views/Dashboard.vue"
 import AddChild from "@/views/Child/Add.vue"
 import ListChild from "@/views/Child/List.vue"
 
+
+
+import SideViewDisplay from "@/views/SideViewDisplay.vue"
+import DelistingListDisplay from "@/views/DelistingListDisplay.vue"
+
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -61,6 +67,16 @@ const routes = [
     path: '/child/list',
     name: 'list-child',
     component: ListChild
+  },
+  {
+    path: '/side-view/display',
+    name: 'side-view-display',
+    component: SideViewDisplay
+  },
+  {
+    path: '/delisting-list/display',
+    name: 'delisting-list-display',
+    component: DelistingListDisplay
   },
   
 ]
