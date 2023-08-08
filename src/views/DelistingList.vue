@@ -8,8 +8,8 @@
                 <v-form v-if="!response">
                     <v-select outlined v-model="child_id" :reverse="true" :items="child_list" item-text="name"
                         item-value="id" label="اسم الطفل" :error-messages="childErrors"></v-select>
-                    <v-select outlined v-model="dim_id" :reverse="true" :items="dim_list" label="البعد "
-                        :error-messages="dimErrors" :disabled="dim_disabled"></v-select>
+                    <v-select outlined v-model="dim_id" :reverse="true" :items="dim_list" label="البعد " item-value="dim_id"
+                        item-text="dim_nam" :error-messages="dimErrors" :disabled="dim_disabled"></v-select>
                     <v-select outlined v-model="sub_id" :reverse="true" :items="subFiltered" item-text="title"
                         item-value="id" label="عنوان فرعي " :error-messages="subErrors" :disabled="sub_disabled"></v-select>
                     <v-btn @click="submit" :disabled="isSubmit && !response" color="primary" light style="margin-top: 15px">
@@ -76,8 +76,8 @@ export default {
             this.axios.get(this.$store.state.url + "/api/available_dim/" + this.child_id, { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
                 .then(res => {
                     this.get_dim = true
-                    console.log(res.data.dim)
-                    this.dim_list = res.data.dim
+                    console.log(res.data.result)
+                    this.dim_list = res.data.result
                 });
         },
     },
@@ -126,8 +126,8 @@ export default {
         },
         send() {
             this.dim_list.forEach(item => {
-                if (this.dim_id == item.id)
-                    this.dim_name = item.title
+                if (this.dim_id == item.dim_id)
+                    this.dim_name = item.dim_nam
             })
             console.log(this.dim_name)
             this.sub_list.forEach(item => {

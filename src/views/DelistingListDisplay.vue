@@ -41,7 +41,7 @@
                                     <template v-slot:default>
                                         <tbody>
                                             <tr v-for="(item, index) in plan" :key="index">
-                                                <td>{{ index + 1 }} </td>
+                                                <td>{{ index + 1 }}</td>
                                                 <td>{{ item.qus }}</td>
                                             </tr>
                                         </tbody>
@@ -94,21 +94,19 @@ export default {
         getData() {
             this.axios.get(this.$store.state.url + "/api/list_result_all", { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
                 .then(res => {
-                    console.log(res.data.result)
+                    // console.log(res.data.result)
                     this.load = true
                     this.data = res.data.result
-                    console.log(this.data)
 
                 });
         },
-        changeFormat(date) {
-            return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
-        },
         get_plan(item) {
             this.dialog = true
-            this.axios.post(this.$store.state.url + "/api/plan", {
+            console.log(item.date)
+            this.axios.post(this.$store.state.url + "/api/plan_list_all", {
                 child_id: item.child_id,
                 subTitle_id: item.sub_title_id,
+                date: item.date
             }, { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
                 .then((res) => {
                     this.load_plan = true

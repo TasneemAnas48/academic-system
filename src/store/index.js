@@ -9,7 +9,7 @@ export default new Vuex.Store({
     url: "http://192.168.43.244:8000",
     name: '',
     email:'',
-    token: '1|PE7OPkRqCfyO6Ws5AbQMLfDOcSiIOE9I8cDxEhRA',
+    token: '2|h1F2737AlTxIb4bux006ZRHCZJGgZyi2qz5Vyw3h',
     user_id: '1'
   },
   getters: {
