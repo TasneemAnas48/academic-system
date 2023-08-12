@@ -21,7 +21,7 @@
                                 <v-text-field  outlined v-model="age" :reverse="true" label=" تاريخ الميلاد "
                                     append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" :error-messages="ageErrors"></v-text-field>
                             </template>
-                            <v-date-picker v-model="age" scrollable>
+                            <v-date-picker v-model="age" scrollable :allowed-dates="allowedDates">
                                 <v-spacer></v-spacer>
                                 <v-btn text color="primary" @click="modal = false">
                                     إلغاء
@@ -89,6 +89,8 @@ export default {
         },
     },
     methods: {
+        allowedDates: val => val < new Date().toJSON().slice(0,10),
+
         submit() {
             this.$v.$touch()
             if (!this.$v.$error) {

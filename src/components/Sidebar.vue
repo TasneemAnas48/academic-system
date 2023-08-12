@@ -45,12 +45,12 @@ export default {
       {
         href: "/side-view/display",
         title: " الصورة الجانبية",
-        icon: "fas fa-baby",
+        icon: "fa fa-columns",
       },
       {
         href: "/delisting-list/display",
         title: " قائمة الشطب",
-        icon: "fas fa-baby",
+        icon: "fas fa-list",
       },
       {
         // href: "/",
