@@ -13,13 +13,16 @@
                 <v-form>
                     <v-text-field outlined :reverse="true" v-model="name" :error-messages="nameErrors"
                         label="اسم الطفل "></v-text-field>
+                    <v-text-field outlined :reverse="true" v-model="father_name" :error-messages="fatherErrors"
+                        label="اسم الاب "></v-text-field>
                     <!-- <v-text-field outlined :reverse="true" v-model="age" :error-messages="ageErrors"
                         label=" تاريخ الميلاد "></v-text-field> -->
                     <div class="my-date">
                         <v-dialog ref="dialog" v-model="modal" :return-value.sync="age" persistent width="290px">
                             <template v-slot:activator="{ on, attrs }">
-                                <v-text-field  outlined v-model="age" :reverse="true" label=" تاريخ الميلاد "
-                                    append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" :error-messages="ageErrors"></v-text-field>
+                                <v-text-field outlined v-model="age" :reverse="true" label=" تاريخ الميلاد "
+                                    append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                    :error-messages="ageErrors"></v-text-field>
                             </template>
                             <v-date-picker v-model="age" scrollable :allowed-dates="allowedDates">
                                 <v-spacer></v-spacer>
@@ -68,10 +71,12 @@ export default {
         user_id: null,
         snackbar: false,
         modal: false,
-        send_age: null
+        send_age: null,
+        father_name: null
     }),
     validations: {
         name: { required },
+        father_name: { required },
         age: { required },
     },
     computed: {
@@ -79,6 +84,12 @@ export default {
             const errors = []
             if (!this.$v.name.$dirty) return errors
             !this.$v.name.required && errors.push('هذا الحقل مطلوب')
+            return errors
+        },
+        fatherErrors(){
+            const errors = []
+            if (!this.$v.father_name.$dirty) return errors
+            !this.$v.father_name.required && errors.push('هذا الحقل مطلوب')
             return errors
         },
         ageErrors() {
@@ -89,7 +100,7 @@ export default {
         },
     },
     methods: {
-        allowedDates: val => val < new Date().toJSON().slice(0,10),
+        allowedDates: val => val < new Date().toJSON().slice(0, 10),
 
         submit() {
             this.$v.$touch()
@@ -109,6 +120,7 @@ export default {
             this.axios.post(this.$store.state.url + "/api/stor_child", {
                 name: this.name,
                 age: this.send_age,
+                father_name: this.father_name,
                 user_id: this.$store.state.user_id
             }, { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
                 .then((res) => {

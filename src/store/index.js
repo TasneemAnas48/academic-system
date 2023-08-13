@@ -6,10 +6,12 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isCollapsed: false,
-    url: "http://192.168.43.244:8000",
+    url: "http://127.0.0.1:8002",
+    ass_url: "http://127.0.0.1:8001",
+    ass_url_front: "http://192.168.43.244:8080",
     name: '',
     email:'',
-    token: '2|h1F2737AlTxIb4bux006ZRHCZJGgZyi2qz5Vyw3h',
+    token: '1|axtrFl4GNdbAnlpCK4rHeOANKMgPlpIscXfX4SdU',
     user_id: '1'
   },
   getters: {

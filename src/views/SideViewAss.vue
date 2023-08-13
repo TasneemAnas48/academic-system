@@ -23,7 +23,7 @@
                             color="white"></v-progress-circular>
                     </v-btn>
                 </v-form>
-                <side-box :result="result" :child_id="child_id" :start_age="start_age" :end_age="end_age" :dim_id="dim_id"
+                <side-box-ass :result="result" :child_id="child_id" :start_age="start_age" :end_age="end_age" :dim_id="dim_id"
                     :dim_name="dim_name" v-if="response" />
             </div>
         </div>
@@ -35,12 +35,12 @@
 
 import { validationMixin } from 'vuelidate'
 import { required } from 'vuelidate/lib/validators'
-import SideBox from "@/components/SideBox.vue"
+import SideBoxAss from "@/components/SideBoxAss.vue"
 
 export default {
-    name: 'SideView',
+    name: 'SideViewAss',
     components: {
-        SideBox
+        SideBoxAss
         // Breadcrumbs
     },
     mixins: [validationMixin],
@@ -93,6 +93,7 @@ export default {
         },
         send() {
             console.log(this.dim_id) // 2
+            this.storeOnLocalStorage()
             this.dim_list.forEach(item => {
                 if (this.dim_id == item.id)
                     this.dim_name = item.title
@@ -121,15 +122,26 @@ export default {
                 .then(res => {
                     this.child_list = res.data.child
                     console.log(res.data.child)
+                    this.child_id = parseInt(this.$route.params.id)
                 });
         },
         getDim() {
             this.axios.get(this.$store.state.url + "/api/show_dimantion", { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
                 .then(res => {
                     this.dim_list = res.data.dmantion
-                    console.log(res.data.dmantion)
+                    // console.log(res.data.dmantion)
                 });
         },
+        storeOnLocalStorage(){
+            const my_child = this.child_list.filter(item => item.id == this.child_id)
+            const my_dim = this.dim_list.filter(item => item.id == this.dim_id)
+
+            console.log(my_child)
+            console.log(my_dim)
+
+            localStorage.setItem("my_child",  JSON.stringify(my_child))
+            localStorage.setItem("my_dim",  JSON.stringify(my_dim))
+        }
     },
     mounted() {
         this.getChild()

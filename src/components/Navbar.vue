@@ -8,7 +8,6 @@
                 <b-nav-item-dropdown right>
                     <template #button-content>
                         <b-icon icon="bell-fill"></b-icon>
-                        <!-- {{ display_lang }} -->
                     </template>
                     <b-dropdown-item>
                         <div class="title">

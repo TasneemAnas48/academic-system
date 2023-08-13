@@ -144,7 +144,7 @@ export default {
                     else {
                         this.age = res.data.age
                         this.get_portage_table()
-                        
+                        this.store_in_ass()
                     }
                 })
                 .catch((error) => {
@@ -160,6 +160,40 @@ export default {
                     this.load = true
                     console.log(res.data)
                     this.portage = res.data
+                })
+        },
+        store_in_ass(){
+            const my_child = JSON.parse(localStorage.getItem("my_child"))
+            const my_dim = JSON.parse(localStorage.getItem("my_dim"))
+            console.log(my_child)
+            console.log(my_dim)
+
+            console.log(my_child[0].father_name)
+            console.log(my_child[0].name)
+
+            console.log(this.age.basal)
+
+            console.log(this.age.additional)
+
+            console.log(my_dim[0].title)
+
+
+
+            const formData = new FormData()
+            formData.append('father_name', my_child[0].father_name)
+            formData.append('child_name', my_child[0].name)
+            formData.append('basal', this.age.basal)
+            formData.append('additional', this.age.additional)
+            formData.append('diminssion', my_dim[0].title)
+            this.axios.post(this.$store.state.ass_url + "/api/connect/between/sys3", formData)
+                .then(res => {
+                    console.log(res.data)
+                    // if (res.data.message == "false")
+                    //     window.location.replace(this.$store.state.aca_url_front+"/first-register");
+                    // if (res.data.message == "true")
+                    //     window.location.replace(this.$store.state.aca_url_front+"/side-view-ass/"+ res.data.data.id);
+                }).catch(error => {
+                    this.error_snackbar = true
                 })
         },
         initAnswer() {

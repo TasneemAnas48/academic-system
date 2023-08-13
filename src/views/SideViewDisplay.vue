@@ -91,7 +91,7 @@
 <script>
 
 export default {
-    name: 'childList',
+    name: 'SideViewDisplay',
     components: {
 
     },

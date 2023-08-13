@@ -52,7 +52,7 @@ export default {
     mixins: [validationMixin],
     validations: {
         email: { required, email },
-        password: { required, minLength: minLength(8) },
+        password: { required },
     },
 
     data: () => ({
@@ -75,7 +75,7 @@ export default {
             const errors = []
             if (!this.$v.password.$dirty) return errors
             !this.$v.password.required && errors.push('هذا الحقل مطلوب')
-            !this.$v.password.minLength && errors.push('الرجاء ادخال 8 رموز على الأقل')
+            // !this.$v.password.minLength && errors.push('الرجاء ادخال 8 رموز على الأقل')
             return errors
         },
 

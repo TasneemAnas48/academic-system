@@ -33,11 +33,6 @@ export default {
   data: () => ({
     menu: [
       {
-        href: "/",
-        title: "لوحة التحكم",
-        icon: "fa fa-home"
-      },
-      {
         href: "/child/list",
         title: "الأطفال",
         icon: "fas fa-baby",

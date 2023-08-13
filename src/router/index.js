@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 
 import welcome from "@/views/Welcome.vue"
 import SideView from "@/views/SideView.vue"
+import SideViewAss from "@/views/SideViewAss.vue"
+
 import DelistingList from "@/views/DelistingList.vue"
 
 import Login from "@/views/Login/Login.vue"
@@ -37,6 +39,11 @@ const routes = [
     path: '/side-view',
     name: 'side-view',
     component: SideView
+  },
+  {
+    path: '/side-view-ass/:id',
+    name: 'side-view-ass',
+    component: SideViewAss
   },
   {
     path: '/delisting-list',
