@@ -23,8 +23,8 @@
                             color="white"></v-progress-circular>
                     </v-btn>
                 </v-form>
-                <side-box-ass :result="result" :child_id="child_id" :start_age="start_age" :end_age="end_age" :dim_id="dim_id"
-                    :dim_name="dim_name" v-if="response" />
+                <side-box-ass :result="result" :child_id="child_id" :start_age="start_age" :end_age="end_age"
+                    :dim_id="dim_id" :dim_name="dim_name" v-if="response" />
             </div>
         </div>
     </div>
@@ -55,7 +55,8 @@ export default {
         result: null,
         start_age: null,
         end_age: null,
-        dim_name: null
+        dim_name: null,
+        user_id: null
         // box_id: [],
     }),
     validations: {
@@ -132,28 +133,32 @@ export default {
                     // console.log(res.data.dmantion)
                 });
         },
-        storeOnLocalStorage(){
+        storeOnLocalStorage() {
             const my_child = this.child_list.filter(item => item.id == this.child_id)
             const my_dim = this.dim_list.filter(item => item.id == this.dim_id)
 
             console.log(my_child)
             console.log(my_dim)
 
-            localStorage.setItem("my_child",  JSON.stringify(my_child))
-            localStorage.setItem("my_dim",  JSON.stringify(my_dim))
+            localStorage.setItem("my_child", JSON.stringify(my_child))
+            localStorage.setItem("my_dim", JSON.stringify(my_dim))
         },
-        login(){
-            this.axios.post(this.$store.state.url + "/api/login", {
-                email: this.email,
-                password: this.password,
+        login() {
+            this.user_id = parseInt(this.$route.params.user_id)
+            this.axios.post(this.$store.state.url + "/api/login_with_id", {
+                id: this.user_id
             }).then(res => {
+                this.$store.state.token = res.data.token
+                localStorage.setItem("token", res.data.token)
+                localStorage.setItem("auth", true)
                 console.log(res)
+                this.getChild()
+                this.getDim()
             })
         }
     },
     mounted() {
-        this.getChild()
-        this.getDim()
+        this.login()
     }
 };
 </script>

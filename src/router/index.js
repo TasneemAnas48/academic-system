@@ -41,7 +41,7 @@ const routes = [
     component: SideView
   },
   {
-    path: '/side-view-ass/:id',
+    path: '/side-view-ass/:id/:user_id',
     name: 'side-view-ass',
     component: SideViewAss
   },
