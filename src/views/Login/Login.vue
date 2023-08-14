@@ -22,7 +22,7 @@
                         </div>
 
                         <v-snackbar left bottom color="red" text v-model="snackbar" timeout="3000">
-                            حدث خطأ غير متوقع، الرجاء اعادة المحاولة
+                            المعلومات المدخلة غير صحيحة، الرجاء اعادة المحاولة
                             <template v-slot:action="{ attrs }">
                                 <v-btn color="red " text v-bind="attrs" @click="snackbar = false">
                                     اغلاق
@@ -98,7 +98,7 @@ export default {
                 console.log(res)
                 this.response = true
                 if (res.data.message == "successfully") {
-                    this.$router.replace({ name: 'dashboard' })
+                    this.$router.replace({ name: 'list-child' })
                     this.storeData(res.data)
                 }
                 else {

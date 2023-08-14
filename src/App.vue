@@ -34,8 +34,8 @@ export default {
   },
   created() {
     const auth = localStorage.getItem("auth")
-    // if (auth)
-      // this.$store.state.token = localStorage.getItem("token")
+    if (auth)
+      this.$store.state.token = localStorage.getItem("token")
   },
 
 

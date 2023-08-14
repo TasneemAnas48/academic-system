@@ -167,7 +167,7 @@ export default {
             localStorage.setItem("auth", true)
         },
         resume_register() {
-            this.$router.replace({ name: 'dashboard' })
+            this.$router.replace({ name: 'list-child' })
         }
     },
     mounted() {

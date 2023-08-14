@@ -115,16 +115,16 @@ export default {
             console.log(this.email)
             console.log(this.name)
             console.log(this.code)
-            // this.dialog = true
-            // this.axios.post(this.$store.state.url + "/api/send", {
-            //     mail: this.email,
-            //     name: this.name,
-            //     code: this.code
-            // }).then(res => {
-            //     this.response = true
-            //     this.dialog = true
-            //     console.log(res.data)
-            // });
+            this.dialog = true
+            this.axios.post(this.$store.state.url + "/api/send", {
+                mail: this.email,
+                name: this.name,
+                code: this.code
+            }).then(res => {
+                this.response = true
+                this.dialog = true
+                console.log(res.data)
+            });
         },
         resume_register() {
             this.$router.replace({ name: 'second-register' })
