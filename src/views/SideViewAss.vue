@@ -141,6 +141,14 @@ export default {
 
             localStorage.setItem("my_child",  JSON.stringify(my_child))
             localStorage.setItem("my_dim",  JSON.stringify(my_dim))
+        },
+        login(){
+            this.axios.post(this.$store.state.url + "/api/login", {
+                email: this.email,
+                password: this.password,
+            }).then(res => {
+                console.log(res)
+            })
         }
     },
     mounted() {

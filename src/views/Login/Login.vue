@@ -98,7 +98,6 @@ export default {
                 console.log(res)
                 this.response = true
                 if (res.data.message == "successfully") {
-                    this.$router.replace({ name: 'list-child' })
                     this.storeData(res.data)
                 }
                 else {
@@ -125,6 +124,8 @@ export default {
             localStorage.setItem("name", data.user.name)
             localStorage.setItem("email", data.user.email)
             localStorage.setItem("auth", true)
+            this.$router.replace({ name: 'list-child' })
+
         },
     },
     mounted() {

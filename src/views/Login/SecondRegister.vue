@@ -140,7 +140,6 @@ export default {
                     this.isSubmit = false
                 }
                 else {
-                    this.dialog = true
                     this.storeData(res.data)
                 }
             });
@@ -158,7 +157,7 @@ export default {
             localStorage.setItem("auth", true)
             localStorage.removeItem("register_name")
             localStorage.removeItem("register_email")
-
+            this.dialog = true
         },
         resume_register() {
             this.$router.replace({ name: 'list-child' })
