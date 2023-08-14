@@ -17,7 +17,7 @@
                         </v-btn>
 
                         <v-snackbar left bottom color="red" text v-model="snackbar" timeout="3000">
-                            حدث خطأ غير متوقع، الرجاء اعادة المحاولة
+                            هذا الايميل مستخدم مسبقا، الرجاء اعادة المحاولة
                             <template v-slot:action="{ attrs }">
                                 <v-btn color="red " text v-bind="attrs" @click="snackbar = false">
                                     اغلاق
@@ -36,7 +36,7 @@
                             </v-card-text>
                             <v-divider></v-divider>
                             <v-card-actions style="padding-bottom: 15px;">
-                                <v-btn color="green darken-1" text  @click="resume_register()">
+                                <v-btn color="green darken-1" text @click="resume_register()">
                                     موافق
                                 </v-btn>
                             </v-card-actions>
@@ -115,18 +115,24 @@ export default {
             console.log(this.email)
             console.log(this.name)
             console.log(this.code)
-            this.dialog = true
             this.axios.post(this.$store.state.url + "/api/send", {
                 mail: this.email,
                 name: this.name,
                 code: this.code
             }).then(res => {
                 this.response = true
-                this.dialog = true
-                console.log(res.data)
+                if (res.data.message == 'the email already exists'){
+                    this.response = false
+                    this.isSubmit = false
+                    this.snackbar = true
+                }
+                else
+                    this.dialog = true
             });
         },
         resume_register() {
+            localStorage.setItem("register_name", this.name)
+            localStorage.setItem("register_email", this.email)
             this.$router.replace({ name: 'second-register' })
         }
     },

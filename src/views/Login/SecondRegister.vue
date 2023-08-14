@@ -8,19 +8,15 @@
                 <v-form style="margin-top: 30px">
                     <div class="row">
                         <div class="col-lg-6">
-                            <v-text-field outlined :reverse="true" v-model="name" :error-messages="nameErrors"
-                                label="اسم المستخدم "></v-text-field>
-                            <v-text-field type="password" outlined :reverse="true" v-model="password"
-                                :error-messages="passwordErrors" label="كلمة المرور"></v-text-field>
                             <v-text-field outlined :reverse="true" v-model="code" :error-messages="codeErrors"
                                 label="رمز التحقق  "></v-text-field>
-                        </div>
-                        <div class="col-lg-6">
-                            <v-text-field type="email" outlined :reverse="true" v-model="email"
-                                :error-messages="emailErrors" label="البريد الالكتروني"></v-text-field>
-
+                            <v-text-field type="password" outlined :reverse="true" v-model="password"
+                                :error-messages="passwordErrors" label="كلمة المرور"></v-text-field>
                             <v-text-field type="password" outlined :reverse="true" v-model="confrim_password"
                                 :error-messages="confrimErrors" label="تأكيد كلمة المرور"></v-text-field>
+                        </div>
+                        <div class="col-lg-6 img-container">
+                            <img src="@/assets/img/reg1.svg" style="width: 80%; margin-right: 50px;" />
                         </div>
                     </div>
                     <v-btn @click="submit" :disabled="isSubmit && !response" color="primary" light style="margin-top: 15px">
@@ -30,7 +26,7 @@
                     </v-btn>
 
                     <v-snackbar left bottom color="red" text v-model="snackbar" timeout="3000">
-                        حدث خطأ غير متوقع، الرجاء اعادة المحاولة
+                        رمز التحقق غير صحيح، الرجاء اعادة المحاولة
                         <template v-slot:action="{ attrs }">
                             <v-btn color="red " text v-bind="attrs" @click="snackbar = false">
                                 اغلاق
@@ -63,6 +59,7 @@
 
 
 <script>
+import { BIconFileSpreadsheet } from 'bootstrap-vue';
 
 import { validationMixin } from 'vuelidate'
 import { required, email, sameAs, minLength } from 'vuelidate/lib/validators'
@@ -73,8 +70,6 @@ export default {
     },
     mixins: [validationMixin],
     validations: {
-        email: { required, email },
-        name: { required },
         password: { required, minLength: minLength(8) },
         confrim_password: { required, sameAs: sameAs('password') },
         code: { required },
@@ -93,19 +88,6 @@ export default {
     }),
 
     computed: {
-        emailErrors() {
-            const errors = []
-            if (!this.$v.email.$dirty) return errors
-            !this.$v.email.required && errors.push('هذا الحقل مطلوب')
-            !this.$v.email.email && errors.push('الرجاء ادخال بريد الكتروني صالح')
-            return errors
-        },
-        nameErrors() {
-            const errors = []
-            if (!this.$v.name.$dirty) return errors
-            !this.$v.name.required && errors.push('هذا الحقل مطلوب')
-            return errors
-        },
         passwordErrors() {
             const errors = []
             if (!this.$v.password.$dirty) return errors
@@ -136,6 +118,9 @@ export default {
             }
         },
         sendData() {
+            this.name = localStorage.getItem("register_name")
+            this.email = localStorage.getItem("register_email")
+
             console.log(this.email)
             console.log(this.name)
             console.log(this.password)
@@ -149,9 +134,15 @@ export default {
                 code: this.code
             }).then(res => {
                 this.response = true
-                this.dialog = true
-                console.log(res.data)
-                this.storeData(res.data)
+                if (res.data.message == 'error number') {
+                    this.snackbar = true
+                    this.response = false
+                    this.isSubmit = false
+                }
+                else {
+                    this.dialog = true
+                    this.storeData(res.data)
+                }
             });
         },
         storeData(data) {
@@ -165,6 +156,9 @@ export default {
             localStorage.setItem("name", data.user.name)
             localStorage.setItem("email", data.user.email)
             localStorage.setItem("auth", true)
+            localStorage.removeItem("register_name")
+            localStorage.removeItem("register_email")
+
         },
         resume_register() {
             this.$router.replace({ name: 'list-child' })
