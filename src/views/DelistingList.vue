@@ -25,7 +25,7 @@
         <v-dialog v-model="dialog" max-width="500">
             <v-card>
                 <v-card-text style="padding: 25px 30px; font-size: 18px; color: #484848;">
-                    لا يمكنك القيام باختيار قائمة الشطب، الرجاء القيام باختبار الصورة الجانبية اولا </v-card-text>
+                    لا يمكنك القيام باختيار قائمة الشطب، لأن الطفل طبيعي ولا يعاني من مشاكل في هذا المجال </v-card-text>
                 <!-- <v-divider></v-divider> -->
                 <v-card-actions style="padding-bottom: 15px;">
                     <v-btn color="green darken-1" text @click="ok()">
