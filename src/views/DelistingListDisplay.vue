@@ -92,7 +92,7 @@ export default {
     }),
     methods: {
         getData() {
-            this.axios.get(this.$store.state.url + "/api/list_result_all", { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
+            this.axios.get(this.$store.state.url + "/api/list_result_all", )
                 .then(res => {
                     // console.log(res.data.result)
                     this.load = true
@@ -107,7 +107,7 @@ export default {
                 child_id: item.child_id,
                 subTitle_id: item.sub_title_id,
                 date: item.date
-            }, { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
+            }, )
                 .then((res) => {
                     this.load_plan = true
                     this.plan = res.data.result

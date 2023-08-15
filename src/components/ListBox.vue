@@ -86,7 +86,7 @@ export default {
                 ques_id: this.ques_id,
                 answer: this.answer,
                 subTitle_id: this.subTitle_id,
-            }, { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
+            }, )
                 .then((res) => {
                     this.response = true
                     console.log(res)
@@ -111,7 +111,7 @@ export default {
             this.axios.post(this.$store.state.url + "/api/plan", {
                 child_id: this.child_id,
                 subTitle_id: this.subTitle_id,
-            }, { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
+            }, )
                 .then((res) => {
                     this.plan = res.data.result
                     console.log(res.data)

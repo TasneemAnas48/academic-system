@@ -50,7 +50,7 @@ export default {
     }),
     methods: {
         getData() {
-            this.axios.get(this.$store.state.url + "/api/show_child", { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
+            this.axios.get(this.$store.state.url + "/api/show_child", )
                 .then(res => {
                     console.log(res.data.child)
                     this.load = true

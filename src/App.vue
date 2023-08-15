@@ -1,13 +1,14 @@
 <template>
   <v-app>
-    <div :class="[isCollapsed ? 'collapsed' : 'not-collapsed']"  v-if="!['first-register', 'second-register', 'login'].includes($route.name)" >
+    <div :class="[isCollapsed ? 'collapsed' : 'not-collapsed']"
+      v-if="!['first-register', 'second-register', 'login'].includes($route.name)">
       <v-main class="internal-main">
         <sidebar />
         <navbar />
         <router-view />
       </v-main>
     </div>
-    <div  v-else>
+    <div v-else>
       <v-main class="external-main">
         <router-view />
       </v-main>
@@ -27,15 +28,15 @@ export default {
   data: () => ({
   }),
   computed: {
-  
+
     isCollapsed() {
       return this.$store.state.isCollapsed
     }
   },
   created() {
-    const auth = localStorage.getItem("auth")
-    if (auth)
-      this.$store.state.token = localStorage.getItem("token")
+    const token = localStorage.getItem("token")
+    console.log(token)
+    this.axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
   },
 
 
@@ -43,14 +44,16 @@ export default {
 </script>
 
 <style lang="scss">
-*{
+* {
   letter-spacing: normal !important;
 }
-#app{
+
+#app {
   font-family: 'Almarai', sans-serif !important;
   direction: rtl;
   text-align: justify !important;
 }
+
 .v-application {
   background-color: #f5f7fc !important;
 }
@@ -62,7 +65,7 @@ export default {
 }
 
 @media (min-width: 767px) {
-.collapsed {
+  .collapsed {
     padding-right: 65px;
     transition: 0.3s padding-right ease;
   }
@@ -78,7 +81,6 @@ export default {
   font-family: "Almarai";
   src: local("Almarai"),
     url(assets/font/Almarai-Regular.ttf) format("truetype");
-    font-display: swap
+  font-display: swap
 }
-
 </style>

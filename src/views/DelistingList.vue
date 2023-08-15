@@ -73,7 +73,7 @@ export default {
     },
     watch: {
         child_id() {
-            this.axios.get(this.$store.state.url + "/api/available_dim/" + this.child_id, { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
+            this.axios.get(this.$store.state.url + "/api/available_dim/" + this.child_id, )
                 .then(res => {
                     this.get_dim = true
                     console.log(res.data.result)
@@ -142,7 +142,7 @@ export default {
                 child_id: this.child_id,
                 dim_id: this.dim_id,
                 subTitle_id: this.sub_id
-            }, { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
+            }, )
                 .then((res) => {
                     // this.result = res.data
                     // this.response = true
@@ -159,14 +159,14 @@ export default {
                 });
         },
         getChild() {
-            this.axios.get(this.$store.state.url + "/api/show_child", { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
+            this.axios.get(this.$store.state.url + "/api/show_child", )
                 .then(res => {
                     this.child_list = res.data.child
                     // console.log(res.data.child)
                 });
         },
         getSub() {
-            this.axios.get(this.$store.state.url + "/api/sub_title", { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
+            this.axios.get(this.$store.state.url + "/api/sub_title", )
                 .then(res => {
                     this.sub_list = res.data.title
                     // console.log(this.sub_list)

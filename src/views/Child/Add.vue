@@ -122,7 +122,7 @@ export default {
                 age: this.send_age,
                 father_name: this.father_name,
                 user_id: this.$store.state.user_id
-            }, { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
+            }, )
                 .then((res) => {
                     this.response = true
                     console.log(res.data)

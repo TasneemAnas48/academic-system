@@ -102,7 +102,7 @@ export default {
                 child_id: this.child_id,
                 dim_id: this.dim_id,
                 disability: this.disability
-            }, { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
+            }, )
                 .then((res) => {
                     this.result = res.data
                     this.start_age = res.data.start_age
@@ -117,14 +117,14 @@ export default {
                 });
         },
         getChild() {
-            this.axios.get(this.$store.state.url + "/api/show_child", { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
+            this.axios.get(this.$store.state.url + "/api/show_child", )
                 .then(res => {
                     this.child_list = res.data.child
                     console.log(res.data.child)
                 });
         },
         getDim() {
-            this.axios.get(this.$store.state.url + "/api/show_dimantion", { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
+            this.axios.get(this.$store.state.url + "/api/show_dimantion", )
                 .then(res => {
                     this.dim_list = res.data.dmantion
                     console.log(res.data.dmantion)

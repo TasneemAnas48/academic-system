@@ -41,11 +41,11 @@
                         <td>{{ dim_name }}</td>
                     </tr>
                     <tr>
-                        <td>العمر الإضافي</td>
+                        <td>العمر الاضافي (الاشهر) </td>
                         <td>{{ age.additional }}</td>
                     </tr>
                     <tr>
-                        <td> العمر القاعدي </td>
+                        <td>العمر القاعدي (السنة)</td>
                         <td>{{ age.basal }}</td>
                     </tr>
                 </tbody>
@@ -129,7 +129,7 @@ export default {
                 child_id: this.child_id,
                 box_id: this.box_id,
                 ans: this.ans
-            }, { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
+            }, )
                 .then((res) => {
                     this.response = true
                     console.log(res.data)
@@ -155,7 +155,7 @@ export default {
             this.axios.post(this.$store.state.url + "/api/portage_table", {
                 child_id: this.child_id,
                 dim_id: this.dim_id,
-            }, { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
+            }, )
                 .then((res) => {
                     this.load = true
                     console.log(res.data)

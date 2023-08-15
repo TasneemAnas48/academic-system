@@ -114,12 +114,12 @@ export default {
     }),
     methods: {
         getData() {
-            this.axios.get(this.$store.state.url + "/api/Portage_result_all", { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
+            this.axios.get(this.$store.state.url + "/api/Portage_result_all")
                 .then(res => {
-                    console.log(res.data.result)
+                    console.log(res)
                     this.load = true
                     this.data = res.data.result
-                    console.log(this.data)
+                    // console.log(this.data)
                 });
         },
         changeFormat(date) {
@@ -130,7 +130,7 @@ export default {
             this.axios.post(this.$store.state.url + "/api/portage_table", {
                 child_id: item.child_id,
                 dim_id: item.dim_id,
-            }, { headers: { 'Authorization': `Bearer ${this.$store.state.token}` } })
+            })
                 .then((res) => {
                     this.load_portage = true
                     console.log(res.data)
