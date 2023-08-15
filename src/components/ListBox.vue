@@ -2,7 +2,7 @@
     <div class="list-box add" v-if="list_result == 'false'">
         <div class="row">
             <div class="col-lg-12">
-                <p style="font-size: 18px;">( {{ getQuestion.id }} )  {{ getQuestion.question }}</p>
+                <p style="font-size: 18px;">( {{ getQuestion.ques_number }} )  {{ getQuestion.question }}</p>
                 <v-radio-group v-model="answer" row  :error-messages="errors">
                     <v-radio label="نعم" value="true"></v-radio>
                     <v-radio label="لا" value="false"></v-radio>
