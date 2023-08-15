@@ -11,8 +11,8 @@ export default new Vuex.Store({
     ass_url_front: "http://192.168.43.244:8080",
     name: '',
     email:'',
-    token: '1|axtrFl4GNdbAnlpCK4rHeOANKMgPlpIscXfX4SdU',
-    user_id: '1'
+    token: '',
+    user_id: ''
   },
   getters: {
   },

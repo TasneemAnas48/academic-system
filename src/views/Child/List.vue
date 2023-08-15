@@ -40,7 +40,8 @@ export default {
         headers: [
             { text: 'id', value: 'id', align: "center" },
             { text: 'الاسم', value: 'name', align: "center" },
-            { text: 'العمر', value: 'age', align: "center" },
+            { text: 'اسم الاب', value: 'father_name', align: "center" },
+            { text: 'العمر (بالاشهر)', value: 'age', align: "center" },
         ],
         search: '',
         data: [],
