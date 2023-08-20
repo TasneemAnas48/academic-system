@@ -27,6 +27,18 @@
                     :dim_name="dim_name" v-if="response" />
             </div>
         </div>
+        <v-dialog v-model="dialog" max-width="500">
+            <v-card>
+                <v-card-text style="padding: 25px 30px; font-size: 18px; color: #484848;">
+                    لا يمكنك القيام باختبار الصورة الجانبية، لأن عمر الطفل اكبر من 6 سنوات </v-card-text>
+                <!-- <v-divider></v-divider> -->
+                <v-card-actions style="padding-bottom: 15px;">
+                    <v-btn color="green darken-1" text @click="dialog = false">
+                        موافق
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
@@ -55,7 +67,8 @@ export default {
         result: null,
         start_age: null,
         end_age: null,
-        dim_name: null
+        dim_name: null,
+        dialog: false,
         // box_id: [],
     }),
     validations: {
@@ -102,29 +115,35 @@ export default {
                 child_id: this.child_id,
                 dim_id: this.dim_id,
                 disability: this.disability
-            }, )
+            },)
                 .then((res) => {
-                    this.result = res.data
-                    this.start_age = res.data.start_age
-                    this.end_age = res.data.end_age
-                    this.response = true
-                    console.log(res.data)
-                    // console.log(this.start_age)
-                    // console.log(this.end_age)
+                    if (res.data.massege != "the age is not valid") {
+                        this.result = res.data
+                        this.start_age = res.data.start_age
+                        this.end_age = res.data.end_age
+                        this.response = true
+                    }
+                    else
+                    {
+                        this.response = false
+                        this.dialog = true
+                        this.isSubmit = false
+                    }
+                    console.log(res.data.massege)
                 })
                 .catch((error) => {
                     console.log(error)
                 });
         },
         getChild() {
-            this.axios.get(this.$store.state.url + "/api/show_child", )
+            this.axios.get(this.$store.state.url + "/api/show_child",)
                 .then(res => {
                     this.child_list = res.data.child
                     console.log(res.data.child)
                 });
         },
         getDim() {
-            this.axios.get(this.$store.state.url + "/api/show_dimantion", )
+            this.axios.get(this.$store.state.url + "/api/show_dimantion",)
                 .then(res => {
                     this.dim_list = res.data.dmantion
                     console.log(res.data.dmantion)
