@@ -124,7 +124,7 @@ export default {
             localStorage.setItem("name", data.user.name)
             localStorage.setItem("email", data.user.email)
             localStorage.setItem("auth", true)
-            this.$router.replace({ name: 'list-child' })
+            this.$router.push({ name: 'list-child' })
 
         },
     },

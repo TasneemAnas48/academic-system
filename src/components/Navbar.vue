@@ -4,27 +4,27 @@
             <!-- Right aligned nav items -->
             <b-navbar-nav class="ml-auto">
                 <!-- <b-icon icon="bell-fill"></b-icon> -->
-
+                <!-- 
                 <b-nav-item-dropdown right>
                     <template #button-content>
                         <b-icon icon="bell-fill"></b-icon>
                     </template>
-                    <b-dropdown-item>
-                        <div class="title">
-                            عنوان الاشعار
-                        </div>
-                        <div class="disc">
-                            محتوى الاشعار الوارد من فلان
-                        </div>
-                    </b-dropdown-item>
-                </b-nav-item-dropdown>
+<b-dropdown-item>
+    <div class="title">
+        عنوان الاشعار
+    </div>
+    <div class="disc">
+        محتوى الاشعار الوارد من فلان
+    </div>
+</b-dropdown-item>
+</b-nav-item-dropdown> -->
 
-                <!-- <b-nav-item-dropdown right>
+                <b-nav-item-dropdown right>
                     <template #button-content>
                         <b-icon icon="person-fill"></b-icon>
                     </template>
                     <b-dropdown-item @click="logout">تسجيل خروج</b-dropdown-item>
-                </b-nav-item-dropdown> -->
+                </b-nav-item-dropdown>
             </b-navbar-nav>
         </b-collapse>
     </b-navbar>
@@ -45,25 +45,33 @@ export default {
     //     },
     // },
     methods: {
-        logout(){
+        logout() {
             this.removeFromStore()
             this.removeFromlocalStorage()
-            this.$router.replace({ name: 'welcome' })
+            this.$router.replace({ name: 'login' })
         },
-        removeFromStore(){
+        removeFromStore() {
             this.$store.state.token = null
-            this.$store.state.id = null
-            this.$store.state.name = null
-            this.$store.state.email = null
-            this.$store.state.role = null
         },
-        removeFromlocalStorage(){
+        removeFromlocalStorage() {
             localStorage.setItem("token", '')
             localStorage.setItem("id", '')
             localStorage.setItem("name", '')
             localStorage.setItem("email", '')
             localStorage.setItem("role", '')
-        }
+            localStorage.setItem("auth", false)
+        },
+
+        // removeFromStore() {
+        //     this.$store.state.token = null
+        // },
+        // removeFromlocalStorage() {
+        //     localStorage.removeItem("token")
+        //     localStorage.removeItem("id")
+        //     localStorage.removeItem("name")
+        //     localStorage.removeItem("email")
+        //     localStorage.setItem("auth", false)
+        // }
     },
     mounted() {
     }
@@ -123,8 +131,10 @@ export default {
 .navbar-light .navbar-nav .nav-link {
     color: var(--v-primary-base) !important;
 }
+
 .dropdown-item:active {
     color: #fff;
     text-decoration: none;
     background-color: var(--v-primary-base) !important;
-}</style>
+}
+</style>

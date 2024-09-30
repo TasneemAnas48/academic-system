@@ -47,36 +47,36 @@ export default {
         title: " قائمة الشطب",
         icon: "fas fa-list",
       },
-      {
-        // href: "/",
-        title: "تسجيل خروج",
-        icon: "fas fa-door-open"
-      },
+      // {
+      //   // href: "/",
+      //   title: "تسجيل خروج",
+      //   icon: "fas fa-door-open"
+      // },
     ]
   }),
   methods: {
     onToggleCollapse(collapsed) {
       this.$store.state.isCollapsed = collapsed
     },
-    onItemClick(event, item, node) {
-      // console.log(item.title)
-      if (item.title == 'تسجيل خروج') {
-        // console.log("eeeeeeeeee")
-        this.removeFromStore()
-        this.removeFromlocalStorage()
-        this.$router.replace({ name: 'login' })
-      }
-    },
-    removeFromStore() {
-      this.$store.state.token = null
-    },
-    removeFromlocalStorage() {
-      localStorage.removeItem("token")
-      localStorage.removeItem("id")
-      localStorage.removeItem("name")
-      localStorage.removeItem("email")
-      localStorage.setItem("auth", false)
-    }
+    // onItemClick(event, item, node) {
+    //   // console.log(item.title)
+    //   if (item.title == 'تسجيل خروج') {
+    //     // console.log("eeeeeeeeee")
+    //     this.removeFromStore()
+    //     this.removeFromlocalStorage()
+    //     this.$router.replace({ name: 'login' })
+    //   }
+    // },
+    // removeFromStore() {
+    //   this.$store.state.token = null
+    // },
+    // removeFromlocalStorage() {
+    //   localStorage.removeItem("token")
+    //   localStorage.removeItem("id")
+    //   localStorage.removeItem("name")
+    //   localStorage.removeItem("email")
+    //   localStorage.setItem("auth", false)
+    // }
   },
   mounted() {
 
